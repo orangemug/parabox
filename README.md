@@ -1,8 +1,6 @@
 # Parabox
 Good news everyone! I written a module to communicate with the parallel univerise inside your web page (also known as an iframe)
 
-    ![parabox]()
-
 
 ## API
 You need to set up comms on either side of the iframe

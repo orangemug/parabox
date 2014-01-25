@@ -1,0 +1,22 @@
+{
+  "name": "parabox",
+  "version": "0.1.0",
+  "description": "RPC client/server which supports multiple transport layers",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/karma/bin/karma start config/karma.js --browsers PhantomJS"
+  },
+  "dependencies": {
+    "lodash": "*",
+    "event": "git://github.com/wilsonpage/event"
+  },
+  "devDependencies": {
+    "browserify": "v2.35.0",
+    "mocha": "*",
+    "sinon": "*",
+    "benchmark": "*",
+    "node-uuid": "*",
+    "brfs": "*"
+  }
+}

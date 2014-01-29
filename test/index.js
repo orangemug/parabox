@@ -88,5 +88,34 @@ describe("parabox-client", function() {
       });
     });
   });
+
+  it("test calling buffered methods", function(done) {
+		var args = "msg";
+    var opts = {
+      methods: ["echo", "foo"]
+    };
+
+    var callCount = 0;
+    var callback = function(msg) {
+      assert.equal(msg, args);
+      callCount++;
+      if(callCount > 1) done();
+    }
+
+    var obj = parabox.createClient("test4", transport, opts);
+
+    // Call #1
+    obj.echo(args, callback);
+
+    var serverXhr = parabox.createServer("test4", transport, {
+      echo: function(msg) {
+        return msg;
+      }
+    });
+
+    // Call #2
+    obj.echo(args, callback);
+  });
+
 });
 

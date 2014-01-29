@@ -17,6 +17,7 @@
     "sinon": "*",
     "benchmark": "*",
     "node-uuid": "*",
-    "brfs": "*"
+    "brfs": "*",
+    "karma": "*"
   }
 }

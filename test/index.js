@@ -1,7 +1,7 @@
 var parabox = require("./../");
-var messageTransport = require("./../lib/transport/message-transport");
 var assert = require("assert");
 
+var messageTransport = require("./../lib/transport/message-transport");
 var transport = messageTransport(parabox.postmessage(window, window));
 
 describe("parabox-server", function() {
@@ -81,7 +81,6 @@ describe("parabox-client", function() {
 
     parabox.createClient("test3", transport, {}, function(err, obj) {
       obj.echo(testObj, function(msg) {
-				// FIXME
         assert.equal(msg.a, testObj.a);
         assert.equal(msg.b, testObj.b);
         assert.equal(msg.c, testObj.c);

@@ -1,62 +1,64 @@
 # Parabox
-Good news everyone! I written a module to communicate with the parallel univerise inside your web page (also known as an iframe)
+**WORK IN PROGRESS**
+Good news everyone! I written a module to communicate with the parallel univerise inside your web page (also known as an iframe).
 
 
 ## API
 You need to set up comms on either side of the iframe
 
-Setup an adapter this can be a simple an iframe postmessage
-
-    var Proxy = function(data) {
-      document.querySelector("iframe").postMessage(data, "*");
-    }
-
 Setup a simple host.
 
-    parabox.setupHost(Proxy, {
-      test: function(done) {
-        done("Test");
+    var server = parabox.Server.create("test4", {
+      echo: function(done, msg) {
+        console.log("msg", msg);
+        conn.destroy();
       }
-    }, opts);
-
-Where opts can be:
-
- * connTimeout: Timeout of the connection
- * reqTimeout: Timeout of the a request
+    });
+    var conn = server.listen(transport);
 
 And intergrate a client.
 
-    var interface = parabox.client(Proxy);
+    var client = parabox.Client.create("test4");
+    var conn = client.connect(transport, function(conn) {
+      conn.echo();
+      conn.destroy();
+    });
 
-Or mix in to an existing object
+Watch for errors
 
-    var hostObject = {};
-    parabox.client(Proxy, hostObject);
+    conn.on("error", function() {
+      // Failed to connect to server
+    });
 
+Find out state, all state changes also fire events (**Not complete**)
 
-## Whats going on?
-On init it'll wait for `connTimeout` trying to make a connection. Any requests will get buffered until conntection is ready
+    conn.state // => On of: ["connecting", "connected", "error", "disconnected"]
 
-Connections will keep trying to send
+You can also setup a buffered connection, where you can start calling methods before the connection is established.
 
-    {type: "init"}
-
-It'll respond with the following method definitions
-
-    {
-      type: "methods",
-      data: [
-        "test"
-      ]
-    }
-
-At which point the client will bind dummy methods for these.
+    var client = parabox.Client.create("test4", ["echo"]);
+    var conn = client.connect(transport);
+    conn.remote.echo();
 
 
-## Todo
+## Adapters (**Incorrect**)
+It's really simple to setup add a new adapter, create a modules which the ollowing methods
 
- * Get browserify working
- * Get example working
- * Write tests
+    .send(String:data);
+    .destroy();
 
+And responds to the following event
+
+    .addListener("message", function(String:data) {});
+
+You can use any events library underneath as long as it conforms to the following node.js EventEmitter spec subset
+
+    .addListener(event, listener);
+    .removeListener(event, listener);
+    .removeAllListeners([event]);
+    .emit(event, [arg1], [arg2], [...]);
+
+
+## License
+MIT
 

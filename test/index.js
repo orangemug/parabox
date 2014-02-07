@@ -15,7 +15,8 @@ describe("parabox-server", function() {
       }
     };
 
-    var serverXhr = parabox.createServer("test1", transport, bindObj);
+    var serverXhr = parabox.Server.create("test1", bindObj);
+    serverXhr.listen(transport);
 
     transport.send({
       uid: 1,
@@ -34,7 +35,8 @@ describe("parabox-server", function() {
       }
     };
 
-    var serverXhr = parabox.createServer("test2", transport, bindObj);
+    var server = parabox.Server.create("test2", bindObj);
+    server.listen(transport);
 
     transport.send({
       uid: 1,
@@ -56,14 +58,18 @@ describe("parabox-server", function() {
 
 describe("parabox-client", function() {
   it("test string request/response", function(done) {
-    var serverXhr = parabox.createServer("reqresp", transport, {
+    var client;
+    var server = parabox.Server.create("reqresp", {
       echo: function(msg) {
         return msg;
       }
     });
+    server.listen(transport);
 
-    parabox.createClient("reqresp", transport, {}, function(err, obj) {
-      obj.echo("hi", function(msg) {
+    client = parabox.Client.create("reqresp");
+    client.connect(transport, function(err, conn) {
+      assert.equal(err, false);
+      conn.remote.echo("hi", function(msg) {
         assert.equal(msg, "hi");
         done();
       });
@@ -73,14 +79,17 @@ describe("parabox-client", function() {
   it("test object request/response", function(done) {
 		var testObj = {a: 1, b: 2, c: 3};
 
-    var serverXhr = parabox.createServer("test3", transport, {
+    var server = parabox.Server.create("test3", {
       echo: function(msg) {
         return msg;
       }
     });
+    server.listen(transport);
 
-    parabox.createClient("test3", transport, {}, function(err, obj) {
-      obj.echo(testObj, function(msg) {
+    var client = parabox.Client.create("test3");
+    client.connect(transport, function(err, conn) {
+      assert.equal(err, false);
+      conn.remote.echo(testObj, function(msg) {
         assert.equal(msg.a, testObj.a);
         assert.equal(msg.b, testObj.b);
         assert.equal(msg.c, testObj.c);
@@ -91,9 +100,7 @@ describe("parabox-client", function() {
 
   it("test calling buffered methods", function(done) {
 		var args = "msg";
-    var opts = {
-      methods: ["echo", "foo"]
-    };
+    var methods = ["echo"];
 
     var callCount = 0;
     var callback = function(msg) {
@@ -102,19 +109,25 @@ describe("parabox-client", function() {
       if(callCount > 1) done();
     }
 
-    var obj = parabox.createClient("test4", transport, opts);
+    var client = parabox.Client.create("test4", methods);
+    var conn = client.connect(transport, function(err, conn2) {
+      assert.equal(err, false);
+    });
 
     // Call #1
-    obj.echo(args, callback);
+    conn.remote.echo(args, callback);
 
-    var serverXhr = parabox.createServer("test4", transport, {
+    var server = parabox.Server.create("test4", {
       echo: function(msg) {
         return msg;
       }
-    });
+    })
+    server.listen(transport);
 
     // Call #2
-    obj.echo(args, callback);
+    setTimeout(function() {
+      conn.remote.echo(args, callback);
+    }, 500);
   });
 
 });

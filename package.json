@@ -5,7 +5,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start config/karma.js --browsers PhantomJS"
+    "test": "./node_modules/karma/bin/karma start config/karma.js --browsers PhantomJS --timeout 5000"
   },
   "dependencies": {
     "lodash": "*",

@@ -1,5 +1,5 @@
 module.exports = {
-  createClient: require("./lib/client"),
-  createServer: require("./lib/server"),
+  Client: require("./lib/client"),
+  Server: require("./lib/server"),
   postmessage:  require("./lib/transport/postmessage")
 };

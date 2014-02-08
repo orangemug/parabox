@@ -25,12 +25,14 @@ And intergrate a client.
 
 Watch for errors
 
+    // **Not yet complete**
     conn.on("error", function() {
       // Failed to connect to server
     });
 
 Find out state, all state changes also fire events (**Not complete**)
 
+    // **Not yet complete**
     conn.state // => On of: ["connecting", "connected", "error", "disconnected"]
 
 You can also setup a buffered connection, where you can start calling methods before the connection is established.

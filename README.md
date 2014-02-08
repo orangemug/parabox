@@ -35,7 +35,7 @@ You can also setup a buffered connection, where you can start calling methods be
 
 
 ## Adapters
-It's really simple to setup add a new adapter, create a modules which the ollowing methods
+It's really simple to setup add a new adapter, create a modules which the following methods
 
     .send(String:data);
     .destroy();

@@ -12,17 +12,15 @@ Setup a simple host.
     var server = parabox.Server.create("test4", {
       echo: function(done, msg) {
         console.log("msg", msg);
-        conn.destroy();
       }
     });
-    var conn = server.listen(transport);
+    server.listen(transport);
 
 And intergrate a client.
 
     var client = parabox.Client.create("test4");
     var conn = client.connect(transport, function(conn) {
       conn.echo();
-      conn.destroy();
     });
 
 Watch for errors
@@ -48,16 +46,16 @@ It's really simple to setup add a new adapter, create a modules which the ollowi
     .send(String:data);
     .destroy();
 
-And responds to the following event
+And the following event
 
-    .addListener("message", function(String:data) {});
+    .on("message", function(String:data) {});
 
-You can use any events library underneath as long as it conforms to the following node.js EventEmitter spec subset
+You can use any events library underneath as long as it conforms to the nodejs `EventEmitter#on` spec.
 
-    .addListener(event, listener);
-    .removeListener(event, listener);
-    .removeAllListeners([event]);
-    .emit(event, [arg1], [arg2], [...]);
+    .on(event, listener);
+
+Although <https://github.com/Gozala/events> is recommended
+
 
 
 ## License

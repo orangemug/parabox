@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "lodash": "*",
-    "event": "git://github.com/wilsonpage/event"
+    "events": "*"
   },
   "testling": {
     "browsers": [

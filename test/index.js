@@ -1,8 +1,7 @@
 var parabox = require("./../");
 var assert = require("assert");
 
-var messageTransport = require("./../lib/transport/message-transport");
-var transport = messageTransport(parabox.postmessage(window, window));
+var transport = new parabox.postmessage(window, window);
 
 describe("parabox-server", function() {
 
@@ -11,12 +10,13 @@ describe("parabox-server", function() {
       test: function(a, b) {
         assert.equal(a, 1);
         assert.equal(b, "two");
+        server.close();
         done();
       }
     };
 
-    var serverXhr = parabox.Server.create("test1", bindObj);
-    serverXhr.listen(transport);
+    var server = parabox.Server.create("test1", bindObj);
+    server.listen(transport);
 
     transport.send({
       uid: 1,
@@ -48,6 +48,7 @@ describe("parabox-server", function() {
 			respRequired: true
     }, function(data) {
       assert(data.data, "hello");
+      server.close();
       done()
     });
 
@@ -71,6 +72,7 @@ describe("parabox-client", function() {
       assert.equal(err, false);
       conn.remote.echo("hi", function(msg) {
         assert.equal(msg, "hi");
+        server.close();
         done();
       });
     });
@@ -93,6 +95,7 @@ describe("parabox-client", function() {
         assert.equal(msg.a, testObj.a);
         assert.equal(msg.b, testObj.b);
         assert.equal(msg.c, testObj.c);
+        server.close();
         done();
       });
     });
@@ -106,7 +109,10 @@ describe("parabox-client", function() {
     var callback = function(msg) {
       assert.equal(msg, args);
       callCount++;
-      if(callCount > 1) done();
+      if(callCount > 1) {
+        server.close();
+        done();
+      }
     }
 
     var client = parabox.Client.create("test4", methods);

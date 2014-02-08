@@ -5,7 +5,7 @@ module.exports = function(config) {
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
-    captureTimeout: 5000,
+    captureTimeout: 10000,
     autoWatch: false,
     frameworks: ['mocha', 'browserify'],
     preprocessors: {
@@ -24,8 +24,7 @@ module.exports = function(config) {
     browsers: [
       'PhantomJS',
       'Chrome',
-      'Firefox',
-      'Opera'
+      'Firefox'
     ]
   });
 };

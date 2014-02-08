@@ -5,19 +5,41 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start config/karma.js --browsers PhantomJS --timeout 5000"
+    "test": "./node_modules/karma/bin/karma start config/karma.js --browsers PhantomJS",
+    "test-all": "./node_modules/karma/bin/karma start config/karma.js"
   },
   "dependencies": {
     "lodash": "*",
     "event": "git://github.com/wilsonpage/event"
   },
+  "testling": {
+    "browsers": [
+      "ie/8..latest",
+      "firefox/24..latest",
+      "chrome/28..latest",
+      "opera/12.0", "opera/15..latest",
+      "iphone/6..latest",
+      "safari/5.1..latest"
+    ],
+    "harness" : "mocha",
+    "files": "test/*.js"
+  },
   "devDependencies": {
     "browserify": "v2.35.0",
     "mocha": "*",
+    "karma-browserify": "*",
+    "karma-chrome-launcher": "*",
+    "karma-firefox-launcher": "*",
+    "karma-html2js-preprocessor": "*",
+    "karma-mocha": "*",
+    "karma-phantomjs-launcher": "*",
+    "karma-requirejs": "*",
+    "karma-script-launcher": "*",
     "sinon": "*",
     "benchmark": "*",
     "node-uuid": "*",
     "brfs": "*",
-    "karma": "*"
+    "karma": "*",
+    "testling": "*"
   }
 }

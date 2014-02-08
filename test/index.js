@@ -136,5 +136,21 @@ describe("parabox-client", function() {
     }, 500);
   });
 
+  it("error if server doesn't support supplied methods", function(done) {
+    var methods = ["foo"];
+
+    var client = parabox.Client.create("test5", methods);
+    var conn = client.connect(transport, function(err, conn2) {
+      assert.equal(err, "Missing methods");
+      server.close();
+      done();
+    });
+
+    var server = parabox.Server.create("test5", {
+      bar: function() {}
+    })
+    server.listen(transport);
+  });
+
 });
 

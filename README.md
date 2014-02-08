@@ -1,5 +1,5 @@
 # Parabox
-**WORK IN PROGRESS**
+**Work in progress experiment**
 
 Good news everyone! I written a module to communicate with the parallel univerise inside your web page (also known as an iframe).
 

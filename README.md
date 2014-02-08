@@ -23,14 +23,7 @@ And intergrate a client.
       conn.echo();
     });
 
-Watch for errors
-
-    // **Not yet complete**
-    conn.on("error", function() {
-      // Failed to connect to server
-    });
-
-Find out state, all state changes also fire events (**Not complete**)
+Find out connection status
 
     conn.state // => On of: ["connecting", "connected", "error"]
 

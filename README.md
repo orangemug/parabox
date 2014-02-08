@@ -32,7 +32,6 @@ Watch for errors
 
 Find out state, all state changes also fire events (**Not complete**)
 
-    // **Not yet complete**
     conn.state // => On of: ["connecting", "connected", "error"]
 
 You can also setup a buffered connection, where you can start calling methods before the connection is established.

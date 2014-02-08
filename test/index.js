@@ -45,7 +45,7 @@ describe("parabox-server", function() {
       namespace: "test2",
       methodName: "test",
       data: [1,"two"],
-			respRequired: true
+      respRequired: true
     }, function(data) {
       assert(data.data, "hello");
       server.close();
@@ -79,7 +79,7 @@ describe("parabox-client", function() {
   });
 
   it("test object request/response", function(done) {
-		var testObj = {a: 1, b: 2, c: 3};
+    var testObj = {a: 1, b: 2, c: 3};
 
     var server = parabox.Server.create("test3", {
       echo: function(msg) {
@@ -102,7 +102,7 @@ describe("parabox-client", function() {
   });
 
   it("test calling buffered methods", function(done) {
-		var args = "msg";
+    var args = "msg";
     var methods = ["echo"];
 
     var callCount = 0;

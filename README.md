@@ -16,7 +16,7 @@ Setup a simple host.
     });
     server.listen(transport);
 
-And intergrate a client.
+And integrate a client.
 
     var client = parabox.Client.create("test4");
     var conn = client.connect(transport, function(conn) {
@@ -44,7 +44,7 @@ And the following event
 
     .on("message", function(String:data) {});
 
-You can use any events library underneath as long as it conforms to the nodejs `EventEmitter#on` spec, although <https://github.com/Gozala/events> is recommended.
+You can use any events library underneath as long as it conforms to the nodejs `EventEmitter#on`/`EventEmitter#off` spec, although <https://github.com/Gozala/events> is recommended.
 
 
 ## Test

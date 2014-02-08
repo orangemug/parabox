@@ -152,5 +152,20 @@ describe("parabox-client", function() {
     server.listen(transport);
   });
 
+  it("should show correct connection states", function(done) {
+    var client = parabox.Client.create("test6");
+    var conn = client.connect(transport, function() {
+      assert.equal(conn.state, "connected");
+      server.close();
+      done();
+    });
+    assert.equal(conn.state, "connecting");
+
+    var server = parabox.Server.create("test6", {
+      bar: function() {}
+    });
+    server.listen(transport);
+  });
+
 });
 

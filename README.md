@@ -1,5 +1,5 @@
 # Parabox
-**WORK IN PROGRESS EXPERIMENT**
+**WORK IN PROGRESS: Not ready for use just yet**
 
 Good news everyone! I written a module to communicate with the parallel univerise inside your web page (also known as an iframe).
 
@@ -53,6 +53,16 @@ And the following event
     .on("message", function(String:data) {});
 
 You can use any events library underneath as long as it conforms to the nodejs `EventEmitter#on` spec, although <https://github.com/Gozala/events> is recommended.
+
+
+## Test
+To test in phantomjs **only**, run
+
+    npm test
+
+To test in phantomjs/chrome/firefox (if installed) run
+
+    npm run-script test-all
 
 
 ## License

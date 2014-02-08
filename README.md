@@ -1,5 +1,5 @@
 # Parabox
-**Work in progress experiment**
+**WORK IN PROGRESS EXPERIMENT**
 
 Good news everyone! I written a module to communicate with the parallel univerise inside your web page (also known as an iframe).
 
@@ -40,7 +40,7 @@ You can also setup a buffered connection, where you can start calling methods be
     conn.remote.echo();
 
 
-## Adapters (**Incorrect**)
+## Adapters
 It's really simple to setup add a new adapter, create a modules which the ollowing methods
 
     .send(String:data);
@@ -50,12 +50,7 @@ And the following event
 
     .on("message", function(String:data) {});
 
-You can use any events library underneath as long as it conforms to the nodejs `EventEmitter#on` spec.
-
-    .on(event, listener);
-
-Although <https://github.com/Gozala/events> is recommended
-
+You can use any events library underneath as long as it conforms to the nodejs `EventEmitter#on` spec, although <https://github.com/Gozala/events> is recommended.
 
 
 ## License
